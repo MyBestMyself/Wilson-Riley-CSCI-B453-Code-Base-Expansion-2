@@ -55,5 +55,10 @@ func _on_explosion_timer_timeout():
 	explode()
 
 func explode():
+	$Sprite2D.hide()
 	emit_signal("exploded", global_position)
+	$Particles.emitting = true
+	$DeathTimer.start()
+
+func _on_death_timer_timeout() -> void:
 	queue_free()

@@ -3,6 +3,7 @@ extends StaticBody2D
 var swing_amplitude = 20.0
 var swing_speed = 0.5
 var downward_speed = 45.0
+var moving_up = false
 
 var max_rotation = 15
 var clockwise = true
@@ -34,6 +35,12 @@ func _process(delta):
 	else: 
 		rotation_degrees += 45 * delta * swing_speed
 	
+	if moving_up:
+		position.y -= 25
+
+func stop_drinking():
+	moving_up = true
+
 func start(pos):
 	#position = pos
 	#show()

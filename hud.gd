@@ -17,8 +17,8 @@ func show_game_over():
 	await $MessageTimer.timeout
 
 func update_score(score):
-	$ScoreLabel.text = str(score)
-	if score <= 10:
+	$ScoreLabel.text = str(score - 20)
+	if score <= 30:
 		$ScoreLabel.add_theme_color_override("font_color", WARNING_COLOR)
 	else:
 		$ScoreLabel.add_theme_color_override("font_color", NORMAL_COLOR)

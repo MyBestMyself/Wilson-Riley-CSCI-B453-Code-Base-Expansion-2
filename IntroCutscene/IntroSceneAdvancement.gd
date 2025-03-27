@@ -39,4 +39,4 @@ func advance_cutscene():
 
 func load_main_scene():
 	# Use SceneTree.change_scene() to switch scenes
-	get_tree().change_scene_to_file("res://main.tscn") 
+	get_tree().change_scene_to_file("res://level_1.tscn")

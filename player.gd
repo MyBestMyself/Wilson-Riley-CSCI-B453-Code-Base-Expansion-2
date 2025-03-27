@@ -41,7 +41,7 @@ func _process(delta):
 	# forward motion of the player
 	var player_direction = Input.get_axis("move_down", "move_up")
 	var velocity = calculate_speed(player_direction, delta)
-
+	
 	# test power up
 	if Input.is_action_just_pressed("test_immunity"):
 		if not player_immune:  # Prevent overlapping immunity

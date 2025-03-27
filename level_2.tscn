@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxtvfj5jl0pdl"]
+
+[ext_resource type="Script" path="res://newMain.gd" id="1_yvael"]
+[ext_resource type="PackedScene" uid="uid://dms0asa7h17ya" path="res://level_3.tscn" id="2_aulbi"]
+[ext_resource type="PackedScene" uid="uid://ccqoreueuxdb7" path="res://hud.tscn" id="2_ghw4f"]
+[ext_resource type="PackedScene" uid="uid://b4wpmqp05t6cu" path="res://player.tscn" id="3_lr56f"]
+[ext_resource type="Script" path="res://newPlayer.gd" id="4_73mdq"]
+[ext_resource type="AudioStream" uid="uid://b5ig8lm3ddisj" path="res://sfx/BGM.wav" id="5_80a8v"]
+[ext_resource type="AudioStream" uid="uid://dw26fpygeag8o" path="res://art/gameover.wav" id="6_8uqod"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ppnc6"]
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_yvael")
+hud_message = "Level2"
+next_level = ExtResource("2_aulbi")
+ice_bombs = true
+
+[node name="HUD" parent="." instance=ExtResource("2_ghw4f")]
+
+[node name="Player" parent="." instance=ExtResource("3_lr56f")]
+script = ExtResource("4_73mdq")
+maxSpeed = 15
+velocityCap = 5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_80a8v")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8uqod")
+
+[node name="floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(243, 723)
+scale = Vector2(3.06, 3.06)
+shape = SubResource("WorldBoundaryShape2D_ppnc6")
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
